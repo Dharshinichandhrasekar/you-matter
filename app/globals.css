@@ -1,0 +1,277 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+/* CSS Variables for Theme Colors */
+:root {
+  /* Light Mode */
+  --background: 248 250 252; /* #F8FAFC - Light slate gray */
+  --foreground: 15 23 42; /* #0F172A - Dark slate */
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --primary: 135 168 164; /* #87A8A4 */
+  --primary-foreground: 255 255 255;
+  --secondary: 241 245 249; /* #F1F5F9 - Light slate */
+  --secondary-foreground: 15 23 42;
+  --muted: 241 245 249;
+  --muted-foreground: 100 116 139; /* #64748B - Slate gray */
+  --accent: 255 140 130; /* #FF8C82 */
+  --accent-foreground: 255 255 255;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 226 232 240; /* #E2E8F0 */
+  --input: 226 232 240;
+  --ring: 135 168 164;
+  
+  /* Gradient Backgrounds */
+  --bg-light: linear-gradient(135deg, #f9f9ff 0%, #f0f4ff 100%);
+  --bg-dark: linear-gradient(135deg, #0d0f2c 0%, #1a1b3c 100%);
+  --text-light: #222;
+  --text-dark: #fff;
+}
+
+.dark {
+  /* Dark Mode */
+  --background: 15 23 42; /* #0F172A - Dark slate */
+  --foreground: 248 250 252; /* #F8FAFC - Light slate */
+  --card: 30 41 59; /* #1E293B - Slate 800 */
+  --card-foreground: 248 250 252;
+  --primary: 110 211 207; /* #6ED3CF */
+  --primary-foreground: 15 23 42;
+  --secondary: 30 41 59; /* #1E293B */
+  --secondary-foreground: 248 250 252;
+  --muted: 30 41 59;
+  --muted-foreground: 148 163 184; /* #94A3B8 - Slate 400 */
+  --accent: 255 140 130; /* #FF8C82 */
+  --accent-foreground: 15 23 42;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 51 65 85; /* #334155 - Slate 700 */
+  --input: 51 65 85;
+  --ring: 110 211 207;
+}
+
+/* Base Styles */
+* {
+  border-color: hsl(var(--border));
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-light);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.dark body {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.dark .glass {
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Floating Navigation */
+.floating-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dark .floating-nav {
+  background: rgba(26, 26, 26, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.5);
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.7);
+}
+
+/* Mood Card Hover Effects */
+.mood-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.mood-card:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.mood-card.selected {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+}
+
+/* Journal Entry Cards */
+.journal-card {
+  transition: all 0.3s ease;
+  border: 1px solid hsl(var(--border));
+}
+
+.journal-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: hsl(var(--primary) / 0.3);
+}
+
+/* Button Enhancements */
+.btn-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px hsl(var(--primary) / 0.3);
+}
+
+/* Tag Pills */
+.tag-pill {
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease;
+}
+
+.tag-pill:hover {
+  background: hsl(var(--accent) / 0.1);
+  border-color: hsl(var(--accent) / 0.3);
+  transform: scale(1.05);
+}
+
+.tag-pill.selected {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  border-color: hsl(var(--accent));
+}
+
+/* Loading States */
+.loading-shimmer {
+  background: linear-gradient(90deg, 
+    hsl(var(--muted)) 25%, 
+    hsl(var(--muted) / 0.5) 50%, 
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Focus States */
+.focus-ring {
+  outline: none;
+  ring: 2px;
+  ring-color: hsl(var(--ring) / 0.5);
+  ring-offset: 2px;
+  ring-offset-color: hsl(var(--background));
+}
+
+/* Typewriter Effect */
+.typewriter {
+  border-right: 2px solid hsl(var(--primary));
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { border-color: hsl(var(--primary)); }
+  51%, 100% { border-color: transparent; }
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 50;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .floating-nav {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    border-bottom: none;
+  }
+  
+  .fab {
+    bottom: 5rem;
+  }
+}
