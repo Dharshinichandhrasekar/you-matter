@@ -4,13 +4,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
-import ClientOnly from "./ClientOnly";
 
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
   return (
-    <ClientOnly fallback={<div className="p-4">Loading...</div>}>
       <ProtectedRouteContent>{children}</ProtectedRouteContent>
-    </ClientOnly>
   );
 }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import ClientOnly from "./ClientOnly";
 
 interface DateDisplayProps {
   // Accept Firestore Timestamp-like or Date
@@ -18,10 +17,10 @@ export default function DateDisplay({ timestamp, className }: DateDisplayProps) 
     : null;
 
   return (
-    <ClientOnly fallback={<span className={className}>Loading...</span>}>
+
       <span className={className}>
         {date ? date.toLocaleString() : ""}
       </span>
-    </ClientOnly>
+
   );
 }

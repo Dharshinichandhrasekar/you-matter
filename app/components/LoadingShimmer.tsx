@@ -15,7 +15,6 @@ const shimmerVariants = {
     backgroundPosition: ["200% 0", "-200% 0"],
     transition: {
       duration: 2,
-      ease: "linear",
       repeat: Infinity,
     },
   },
