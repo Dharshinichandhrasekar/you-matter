@@ -19,7 +19,6 @@ import {
   Moon
 } from "lucide-react";
 import { useTheme } from "@/lib/ThemeProvider";
-import ClientOnly from "./ClientOnly";
 
 const navItems = [
   { href: "/", icon: Home, label: "Home" },
@@ -122,31 +121,7 @@ export default function Navbar() {
               </motion.button>
 
               {/* Auth Actions */}
-              <ClientOnly>
-                {!loading && !user && (
-                  <Link href="/auth/login">
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white rounded-xl font-medium shadow-lg hover:shadow-glow transition-all duration-300"
-                    >
-                      <LogIn className="w-4 h-4" />
-                      <span>Login</span>
-                    </motion.div>
-                  </Link>
-                )}
-                {!loading && user && (
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleSignOut}
-                    className="flex items-center gap-2 px-4 py-2 text-muted-foreground hover:text-foreground rounded-xl transition-colors"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span className="text-sm">Sign out</span>
-                  </motion.button>
-                )}
-              </ClientOnly>
+              
             </div>
           </div>
         </nav>
