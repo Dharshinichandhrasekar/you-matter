@@ -100,8 +100,8 @@ export default function Home() {
               variants={itemVariants}
               className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-serif"
             >
-              "A beautiful, private space to track your moods, journal your thoughts, 
-              and discover insights about your emotional well-being."
+              &quot;A beautiful, private space to track your moods, journal your thoughts, 
+              and discover insights about your emotional well-being.&quot;
             </motion.p>
 
             {/* CTA Buttons */}
@@ -139,7 +139,7 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {features.map((feature, index) => {
+              {features.map((feature) => {
                 const Icon = feature.icon;
                 return (
                   <motion.div

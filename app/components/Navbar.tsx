@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/lib/firebase";
-import { signOut } from "firebase/auth";
-import { useRouter, usePathname } from "next/navigation";
+// import { signOut } from "firebase/auth";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { 
   Home, 
@@ -13,8 +11,7 @@ import {
   BarChart3, 
   AlertCircle, 
   User, 
-  LogIn, 
-  LogOut,
+
   Sun,
   Moon
 } from "lucide-react";
@@ -30,17 +27,12 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const [user, loading] = useAuthState(auth);
   const { theme, toggleTheme } = useTheme();
-  const router = useRouter();
   const pathname = usePathname();
 
   const isDark = theme === "dark";
 
-  const handleSignOut = async () => {
-    await signOut(auth);
-    router.push("/auth/login");
-  };
+
 
   return (
     <>

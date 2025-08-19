@@ -115,7 +115,7 @@ export default function MoodTrackerScreen() {
               <h1 className="text-4xl font-bold gradient-text">Mood Check-In</h1>
             </div>
             <p className="text-xl text-muted-foreground font-serif italic">
-              "How are you feeling today?"
+            &quot;How are you feeling today?&quot;
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <Calendar className="w-4 h-4" />
@@ -131,7 +131,7 @@ export default function MoodTrackerScreen() {
           {/* Mood Selection Grid */}
           <motion.div variants={itemVariants}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {moods.map((mood, index) => (
+              {moods.map((mood) => (
                 <motion.div
                   key={mood.label}
                   variants={itemVariants}
@@ -203,7 +203,7 @@ export default function MoodTrackerScreen() {
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold text-foreground">
-                        You're feeling {selectedMoodData.label.toLowerCase()}
+                        You&apos;re feeling {selectedMoodData.label.toLowerCase()}
                       </h3>
                       <p className="text-muted-foreground">{selectedMoodData.description}</p>
                     </div>
@@ -283,7 +283,7 @@ export default function MoodTrackerScreen() {
           {/* Encouragement Message */}
           <motion.div variants={itemVariants} className="text-center">
             <p className="text-sm text-muted-foreground font-serif italic">
-              "Every feeling is valid. You're taking a positive step by checking in with yourself. 💙"
+              &quot;Every feeling is valid. You&apos;re taking a positive step by checking in with yourself. 💙&quot;
             </p>
           </motion.div>
         </motion.div>

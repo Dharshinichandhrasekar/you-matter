@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Progress } from "@/components/ui/progress"; // Assuming shadcn/ui Progress is correctly installed
 
 export type MoodOption = { id: string; label: string; emoji: string; color?: string };
 

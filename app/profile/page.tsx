@@ -136,7 +136,7 @@ export default function ProfilePage() {
               <h1 className="text-4xl font-bold gradient-text">My Profile</h1>
             </div>
             <p className="text-xl text-muted-foreground font-serif italic">
-              "Your journey, your progress, your story"
+              &quot;Your journey, your progress, your story&quot;
             </p>
           </motion.div>
 
@@ -371,7 +371,7 @@ export default function ProfilePage() {
           {/* Encouragement */}
           <motion.div variants={itemVariants} className="text-center">
             <p className="text-sm text-muted-foreground font-serif italic">
-              "You're doing amazing! Every day you choose to check in with yourself is a victory. Keep going! 🌟"
+              &quot;You&apos;re doing amazing! Every day you choose to check in with yourself is a victory. Keep going! &🌟&quot;
             </p>
           </motion.div>
         </motion.div>

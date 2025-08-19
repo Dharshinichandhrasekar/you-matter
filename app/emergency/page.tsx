@@ -5,7 +5,6 @@ import {
   AlertCircle, 
   Phone, 
   MessageCircle, 
-  Globe, 
   Heart, 
   Shield,
   ExternalLink,
@@ -159,7 +158,7 @@ export default function EmergencyPage() {
               <h1 className="text-4xl font-bold gradient-text">Crisis Support</h1>
             </div>
             <p className="text-xl text-muted-foreground font-serif italic max-w-3xl mx-auto">
-              "You are not alone. Help is available 24/7. Your life matters, and there are people who care."
+              &quot;You are not alone. Help is available 24/7. Your life matters, and there are people who care.&quot;
             </p>
           </motion.div>
 
@@ -173,7 +172,7 @@ export default function EmergencyPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-red-800 dark:text-red-200 mb-2">
-                      If you're in immediate danger
+                      If you&apos;re in immediate danger
                     </h3>
                     <p className="text-red-700 dark:text-red-300 mb-4">
                       Please call your local emergency services immediately (911 in the US, 999 in the UK, 112 in EU, etc.) 
@@ -197,7 +196,7 @@ export default function EmergencyPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {emergencyNumbers.map((resource, index) => (
+              {emergencyNumbers.map((resource) => (
                 <motion.div
                   key={resource.country}
                   variants={itemVariants}
@@ -271,7 +270,7 @@ export default function EmergencyPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {onlineResources.map((resource, index) => {
+              {onlineResources.map((resource) => {
                 const Icon = resource.icon;
                 return (
                   <motion.div
@@ -320,7 +319,7 @@ export default function EmergencyPage() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {copingStrategies.map((strategy, index) => (
+                {copingStrategies.map((strategy) => (
                   <motion.div
                     key={strategy.title}
                     variants={itemVariants}
@@ -349,8 +348,8 @@ export default function EmergencyPage() {
               <div className="space-y-4">
                 <Heart className="w-12 h-12 text-primary mx-auto" />
                 <blockquote className="text-xl font-serif italic text-muted-foreground">
-                  "The darkest nights produce the brightest stars. You are stronger than you know, 
-                  and this difficult moment will pass. Reach out for help – it's a sign of courage, not weakness."
+                  &quot;The darkest nights produce the brightest stars. You are stronger than you know, 
+                  and this difficult moment will pass. Reach out for help – it&apos;s a sign of courage, not weakness.&quot;
                 </blockquote>
                 <p className="text-sm text-muted-foreground">— Remember, you matter ❤️</p>
               </div>

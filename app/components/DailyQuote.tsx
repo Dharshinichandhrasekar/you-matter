@@ -133,7 +133,7 @@ export default function DailyQuote() {
                 <Quote className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <blockquote className="text-lg font-serif italic text-foreground mb-3 leading-relaxed">
-                    "{currentQuote.text}"
+                    &ldquo;{currentQuote.text}&rdquo;
                   </blockquote>
                   <cite className="text-sm text-muted-foreground font-medium">
                     — {currentQuote.author}

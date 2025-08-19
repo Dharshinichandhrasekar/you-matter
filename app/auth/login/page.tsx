@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/Input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { ThemeToggle } from "@/lib/ThemeProvider";
 import { toast } from "sonner";
+import { FirebaseError } from "firebase/app";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -31,19 +32,22 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Welcome back! 🎉");
       router.push("/dashboard");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Login error:", err);
       
       // Provide user-friendly error messages
       let errorMessage = "Something went wrong. Please try again.";
+
+      const error = err as FirebaseError;
+      const code = error?.code;
       
-      if (err.code === "auth/user-not-found") {
+      if (code === "auth/user-not-found") {
         errorMessage = "No account found with this email address.";
-      } else if (err.code === "auth/wrong-password") {
+      } else if (code === "auth/wrong-password") {
         errorMessage = "Incorrect password. Please try again.";
-      } else if (err.code === "auth/invalid-email") {
+      } else if (code === "auth/invalid-email") {
         errorMessage = "Please enter a valid email address.";
-      } else if (err.code === "auth/too-many-requests") {
+      } else if (code === "auth/too-many-requests") {
         errorMessage = "Too many failed attempts. Please try again later.";
       }
       
@@ -135,7 +139,7 @@ export default function LoginPage() {
 
           <CardFooter className="flex-col space-y-4">
             <div className="text-center text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/auth/signup"
                 className="font-medium text-primary hover:text-primary/80 transition-colors"

@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/Input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { ThemeToggle } from "@/lib/ThemeProvider";
 import { toast } from "sonner";
+import { FirebaseError } from "firebase/app";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -63,19 +64,22 @@ export default function SignupPage() {
 
       toast.success("Welcome to YouMatter! 🎉");
       router.push("/dashboard");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Signup error:", err);
       
       // Provide user-friendly error messages
       let errorMessage = "Something went wrong. Please try again.";
       
-      if (err.code === "auth/email-already-in-use") {
+      const error = err as FirebaseError;
+      const code = error?.code;
+
+      if (code === "auth/email-already-in-use") {
         errorMessage = "An account with this email already exists.";
-      } else if (err.code === "auth/invalid-email") {
+      } else if (code === "auth/invalid-email") {
         errorMessage = "Please enter a valid email address.";
-      } else if (err.code === "auth/weak-password") {
+      } else if (code === "auth/weak-password") {
         errorMessage = "Password is too weak. Please choose a stronger password.";
-      } else if (err.code === "auth/operation-not-allowed") {
+      } else if (code === "auth/operation-not-allowed") {
         errorMessage = "Email/password accounts are not enabled.";
       }
       

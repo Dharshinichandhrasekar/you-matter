@@ -1,14 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   BookOpen, 
   Plus, 
   Search, 
-  Filter, 
   Calendar,
-  Heart,
   Tag,
   Edit3,
   Clock,
@@ -21,8 +19,8 @@ import Navbar from "@/components/Navbar";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import TagPills, { commonTags } from "@/components/TagPills";
 import { CardSkeleton } from "@/components/LoadingShimmer";
-import { toast } from "sonner";
-import { format, isToday, isYesterday, parseISO } from "date-fns";
+import { format, isToday, isYesterday } from "date-fns";
+import { parseISO } from "date-fns/parseISO";
 
 // Mock journal entries with enhanced data
 const mockEntries = [
@@ -66,7 +64,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -87,6 +85,7 @@ export default function JournalPage() {
   const [isWriting, setIsWriting] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  console.log(setEntries, isWriting, setLoading);
   // Filter entries based on search and tags
   useEffect(() => {
     let filtered = entries;
@@ -149,7 +148,7 @@ export default function JournalPage() {
               <h1 className="text-4xl font-bold gradient-text">My Journal</h1>
             </div>
             <p className="text-xl text-muted-foreground font-serif italic">
-              "Your thoughts, your story, your journey"
+              &ldquo;Your thoughts, your story, your journey&rdquo;
             </p>
           </motion.div>
 
@@ -338,7 +337,7 @@ export default function JournalPage() {
           {/* Encouragement */}
           <motion.div variants={itemVariants} className="text-center">
             <p className="text-sm text-muted-foreground font-serif italic">
-              "Every word you write is a step towards understanding yourself better. Keep going! ✨"
+              &ldquo;Every word you write is a step towards understanding yourself better. Keep going! ✨&rdquo;
             </p>
           </motion.div>
         </motion.div>

@@ -1,15 +1,18 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast, { ToastPosition } from "react-hot-toast"; // Using react-hot-toast as per requirement
-import { encryptText, decryptText } from "@/lib/encryption";
+import { encryptText } from "@/lib/encryption";
 import { useAuth } from "@/lib/AuthProvider";
 import { addJournal } from "@/lib/journalHelpers";
 
 // Simple debounce function with explicit types
-const debounce = <T extends (...args: any[]) => void>(func: T, wait: number): ((...args: Parameters<T>) => void) => {
+const debounce = <Args extends unknown[]>(
+  func: (...args: Args) => void | Promise<void>,
+  wait: number
+): ((...args: Args) => void) => {
   let timeout: NodeJS.Timeout | null = null;
-  return function executedFunction(...args: Parameters<T>) {
+  return function executedFunction(...args: Args) {
     const later = () => {
       timeout = null;
       func(...args);
@@ -34,47 +37,49 @@ export default function JournalEditor({ onSave }: { onSave?: () => void }) {
   const [autosaveStatus, setAutosaveStatus] = useState(""); // "Saving...", "Saved", "Error"
   const autosaveRef = useRef(null);
 
-  // Debounced autosave function
-  const debouncedAutosave = useCallback(
-    debounce(async (currentText: string) => {
-      if (!user) {
-        setAutosaveStatus("Please login");
-        return;
-      }
-      if (!currentText.trim()) {
-        setAutosaveStatus(""); // Clear status if text is empty
-        return;
-      }
+  // Function to be debounced and memoized
+  const saveJournalContent = useCallback(async (currentText: string) => {
+    if (!user) {
+      setAutosaveStatus("Please login");
+      return;
+    }
+    if (!currentText.trim()) {
+      setAutosaveStatus(""); // Clear status if text is empty
+      return;
+    }
 
-      setAutosaveStatus("Saving...");
-      try {
-        const enc = await encryptText(currentText);
-        await addJournal(user.uid, { ciphertext: enc.ciphertext, iv: enc.iv, alg: enc.alg });
-        setAutosaveStatus("Saved ✔");
-        onSave?.(); // Call onSave prop after successful autosave
-        // Clear status after a few seconds
-        setTimeout(() => setAutosaveStatus(""), 3000);
-      } catch (e: any) { // Explicitly type 'e'
-        console.error(e);
-        setAutosaveStatus("Error");
-        // Pass options directly to toast.error
-        toast.error("Could not autosave journal", {
-          style: {
-            border: '1px solid #F87171', // Error color
-            padding: '16px',
-            color: '#1F2937', // Dark slate text
-            backgroundColor: '#F9FAFB', // Off-white background
-          },
-          iconTheme: {
-            primary: '#F87171',
-            secondary: '#F9FAFB',
-          },
-          position: 'top-right' as ToastPosition, // Explicitly cast position
-        });
-      }
-    }, 2000), // Autosave every 2 seconds
-    [user, onSave] // Include onSave in dependencies
-  );
+    setAutosaveStatus("Saving...");
+    try {
+      const enc = await encryptText(currentText);
+      await addJournal(user.uid, { ciphertext: enc.ciphertext, iv: enc.iv, alg: enc.alg });
+      setAutosaveStatus("Saved ✔");
+      onSave?.(); // Call onSave prop after successful autosave
+      setTimeout(() => setAutosaveStatus(""), 3000);
+    } catch (e: unknown) { // Explicitly type 'e'
+      console.error(e);
+      setAutosaveStatus("Error");
+      toast.error("Could not autosave journal", {
+        style: {
+          border: '1px solid #F87171', // Error color
+          padding: '16px',
+          color: '#1F2937', // Dark slate text
+          backgroundColor: '#F9FAFB', // Off-white background
+        },
+        iconTheme: {
+          primary: '#F87171',
+          secondary: '#F9FAFB',
+        },
+        position: 'top-right' as ToastPosition, // Explicitly cast position
+      });
+    }
+  }, [user, onSave]); // Removed unnecessary dependencies: encryptText, addJournal, toast
+
+  // Memoize the debounced version of saveJournalContent
+  const debouncedAutosave = useMemo(
+  () => debounce(saveJournalContent, 2000),
+  [saveJournalContent]
+);
+
 
   useEffect(() => {
     // Trigger autosave when text changes
@@ -172,7 +177,7 @@ export default function JournalEditor({ onSave }: { onSave?: () => void }) {
         position: 'top-right' as ToastPosition, // Explicitly cast position
       });
       onSave?.(); // Call onSave prop after successful manual save
-    } catch (e: any) { // Explicitly type 'e'
+    } catch (e: unknown) { // Explicitly type 'e'
       console.error(e);
       setAutosaveStatus("Error");
       // Pass options directly to toast.error

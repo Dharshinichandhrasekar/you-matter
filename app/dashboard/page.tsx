@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   TrendingUp, 
-  Calendar, 
   Heart, 
   BookOpen, 
-  Target, 
   Award,
   BarChart3,
   Activity,
@@ -30,13 +28,6 @@ const moodData = [
   { date: "Fri", mood: 5, entries: 1 },
   { date: "Sat", mood: 4, entries: 4 },
   { date: "Sun", mood: 5, entries: 2 },
-];
-
-const weeklyMoodData = [
-  { week: "Week 1", avgMood: 3.8 },
-  { week: "Week 2", avgMood: 4.2 },
-  { week: "Week 3", avgMood: 3.9 },
-  { week: "Week 4", avgMood: 4.5 },
 ];
 
 const stats = {
@@ -93,7 +84,7 @@ export default function Dashboard() {
               <h1 className="text-4xl font-bold gradient-text">Your Insights</h1>
             </div>
             <p className="text-xl text-muted-foreground font-serif italic">
-              "Discover patterns in your emotional journey"
+              &quot;Discover patterns in your emotional journey&quot;
             </p>
           </motion.div>
 
@@ -190,9 +181,9 @@ export default function Dashboard() {
                       {["week", "month", "year"].map((range) => (
                         <Button
                           key={range}
-                          variant={timeRange === range ? "default" : "outline"}
+                          variant={timeRange === range ? "primary" : "outline"}
                           size="sm"
-                          onClick={() => setTimeRange(range as any)}
+                          onClick={() => setTimeRange(range as "week" | "month" | "year")}
                           className="capitalize"
                         >
                           {range}
@@ -328,7 +319,7 @@ export default function Dashboard() {
           {/* Encouragement Message */}
           <motion.div variants={itemVariants} className="text-center">
             <p className="text-sm text-muted-foreground font-serif italic">
-              "Your journey of self-discovery is beautiful. Every entry brings you closer to understanding yourself. 🌟"
+              &quot;Your journey of self-discovery is beautiful. Every entry brings you closer to understanding yourself. 🌟&quot;
             </p>
           </motion.div>
         </motion.div>

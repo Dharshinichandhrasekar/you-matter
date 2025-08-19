@@ -1,7 +1,7 @@
 import { doc, collection, addDoc, serverTimestamp, getDocs, query, orderBy, limit, where } from "firebase/firestore";
 import { db, auth } from "@/lib/firebase";
 import { subDays, format } from 'date-fns'; // Removed parseISO, format might still be useful
-
+console.log(limit, format);
 export interface Mood {
   emoji: string;
   label: string;
